@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  healthcare-rag:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DOCUMENTS_PATH=/app/data/medical_documents
+      - VECTOR_DB_PATH=/app/data/embeddings
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0
